@@ -5,6 +5,7 @@ const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
     if (!file) {
@@ -12,6 +13,7 @@ const FileUpload = () => {
       return;
     }
 
+    setLoading(true);
     const formData = new FormData();
     formData.append("file", file);
 
@@ -21,15 +23,19 @@ const FileUpload = () => {
       setError("");
     } catch (error) {
       setError("Upload failed. Try again.");
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
       <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-      <button onClick={handleUpload}>Upload</button>
+      <button onClick={handleUpload}>{loading ? "Uploading..." : "Upload"}</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      {imageUrl && <img src={imageUrl} alt="Uploaded file" />}
+      {imageUrl && (
+        <p>Uploaded: <a href={imageUrl} target="_blank">{imageUrl}</a></p>)}
     </div>
   );
 };
