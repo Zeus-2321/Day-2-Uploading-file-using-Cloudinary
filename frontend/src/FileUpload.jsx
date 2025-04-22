@@ -35,7 +35,7 @@ const FileUpload = () => {
       <button onClick={handleUpload}>{loading ? "Uploading..." : "Upload"}</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {imageUrl && (
-        <p>Uploaded: <a href={imageUrl} target="_blank">{imageUrl}</a></p>)}
+        <p>Uploaded: <a href={imageUrl} target="_blank" rel="noopener noreferrer">{imageUrl}</a></p>)}
     </div>
   );
 };

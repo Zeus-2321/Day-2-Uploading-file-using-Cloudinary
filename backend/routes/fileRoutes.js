@@ -31,7 +31,8 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     await Url.create({ url: result.secure_url });
     res.json({ url: result.secure_url });
   } catch (error) {
-    res.status(500).json({ error: "Upload failed" });
+    console.error('File upload error:', error);
+    res.status(500).json({ error: "Upload failed: " + error.message });
   }
 });
 
